@@ -27,7 +27,13 @@ if file_logger:
 logger.addHandler(sh)
 
 
-class JRPostProcess:
+class PostProcess:
+
+    def __init__(self):
+        pass
+
+
+
 
     def postprocess(self, parser_response: Union[str, dict]):
         if isinstance(parser_response, str):

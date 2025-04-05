@@ -17,7 +17,7 @@ aws_sync/
 aws_sync_2/
 *.csv
 *.jsonl
-*.json
+#*.json
 *.numbers
 *.xlsx
 

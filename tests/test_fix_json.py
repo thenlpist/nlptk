@@ -3,7 +3,8 @@ import os
 import unittest
 from pathlib import Path
 
-from nlptk.jrprocessor.jr_postprocess import JRPostProcess
+# from nlptk.jrprocessor.jrpost import PostProcess
+from nlptk import PostProcess
 
 
 class TestStringMethods(unittest.TestCase):
@@ -12,7 +13,7 @@ class TestStringMethods(unittest.TestCase):
         fo = open("response1.json")
         json_str = fo.read()
         fo.close()
-        pp = JRPostProcess()
+        pp = PostProcess()
         result, is_valid_json, is_valid_jsonresume = pp.postprocess(json_str)
         print()
         print(f"is_valid_json:        {is_valid_json}")
@@ -30,7 +31,7 @@ class TestStringMethods(unittest.TestCase):
             d = json.loads(txt)
             json_str = d["jsonresume"]
             statuscode = d["statuscode"]
-            pp = JRPostProcess()
+            pp = PostProcess()
             result, is_valid_json, is_valid_jsonresume = pp.postprocess(json_str)
             print(f"original statuscode:  {statuscode}")
             print(f"name:                 {result['basics']['name']}")

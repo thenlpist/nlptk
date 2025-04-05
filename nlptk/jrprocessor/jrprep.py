@@ -22,7 +22,7 @@ if file_logger:
 logger.addHandler(sh)
 
 
-class JRPreProcess:
+class PreProcess:
 
     def __init__(self):
         self.bullet_pat = initial_bullet_pattern()
