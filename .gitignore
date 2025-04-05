@@ -1,3 +1,47 @@
+# Project specific
+.DS_Store
+
+# model files
+config.json
+model.bin
+shared_vocabulary.json
+
+# Data * model files
+data/
+data/1_raw/
+data/0_external_raw/
+data/2_interim
+out_data
+
+aws_sync/
+aws_sync_2/
+*.csv
+*.jsonl
+*.json
+*.numbers
+*.xlsx
+
+
+*.zip
+models/
+t5_models/
+
+# IDE files
+.vscode/
+*.code-workspace
+.idea/
+
+# Model checkpoint files
+*.pt
+*.safetensors
+*.model
+*.bin
+
+# scratch files
+notebooks/tutorials/
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
