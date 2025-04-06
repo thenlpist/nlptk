@@ -6,9 +6,8 @@ authors = [
     { name = "The NLPist", email = "abobicesaevior@gmail.com" },
 ]
 dependencies = [
-    "nltk",
-    "transformers",
-    "sentencepiece"
+    "jsonschema",
+    "json-repair"
 ]
 requires-python = ">=3.10"
 readme = "README.md"

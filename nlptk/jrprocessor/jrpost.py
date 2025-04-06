@@ -29,12 +29,6 @@ logger.addHandler(sh)
 
 class PostProcess:
 
-    def __init__(self):
-        pass
-
-
-
-
     def postprocess(self, parser_response: Union[str, dict]):
         if isinstance(parser_response, str):
             response = self._clean_response(copy.copy(parser_response))
