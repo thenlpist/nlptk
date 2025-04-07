@@ -7,6 +7,7 @@ from typing import Union
 
 import json_repair
 
+from nlptk.jsonresume.converter import Converter
 from nlptk.jrprocessor.jr_validation import JRValidate
 
 logger = logging.getLogger(__name__)
@@ -28,6 +29,8 @@ logger.addHandler(sh)
 
 
 class PostProcess:
+    def __init__(self):
+        self.conv = Converter()
 
     def postprocess(self, parser_response: Union[str, dict]):
         if isinstance(parser_response, str):
@@ -48,7 +51,8 @@ class PostProcess:
         is_valid_json = True
         validate = JRValidate()
         is_valid_jsonresume = validate.is_valid_json_resume(d)
-        return d, is_valid_json, is_valid_jsonresume
+        outdata = self.conv.normalize_camel_case(d)
+        return outdata, is_valid_json, is_valid_jsonresume
 
     def _union_jsonresume(self, d):
         jr = {
