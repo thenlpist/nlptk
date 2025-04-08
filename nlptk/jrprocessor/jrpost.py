@@ -56,6 +56,7 @@ class PostProcess:
         except:
             logger.error("Error normalizing json resume: ")
             logger.info(json.dumps(d))
+            outdata = d
 
         return outdata, is_valid_json, is_valid_jsonresume
 
