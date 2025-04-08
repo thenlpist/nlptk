@@ -4,7 +4,7 @@ import os
 import re
 from logging import handlers
 from typing import Union
-
+import json
 import json_repair
 
 from nlptk.jsonresume.converter import Converter
@@ -51,7 +51,12 @@ class PostProcess:
         is_valid_json = True
         validate = JRValidate()
         is_valid_jsonresume = validate.is_valid_json_resume(d)
-        outdata = self.conv.normalize_camel_case(d)
+        try:
+            outdata = self.conv.normalize_camel_case(d)
+        except:
+            logger.error("Error normalizing json resume: ")
+            logger.info(json.dumps(d))
+
         return outdata, is_valid_json, is_valid_jsonresume
 
     def _union_jsonresume(self, d):
