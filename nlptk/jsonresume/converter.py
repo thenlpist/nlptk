@@ -1,4 +1,3 @@
-
 class Converter:
 
     def normalize_camel_case(self, d: dict) -> dict:
@@ -7,7 +6,7 @@ class Converter:
             n.b. This is useful for model predictions that use lower-case keys as a result of being
             trained on the `data` object.
         """
-        # d = self.filter_for_valid_schema(d)
+        # d = self.filter_for_valid_schema(d) # unnecessary since later functions do the same
         d = self.flatten(d)
         d = self.to_camelcase(d)
         d = self.filter_out_keys(d)
@@ -92,30 +91,35 @@ class Converter:
 
     def reorder_all_sections(self, d):
         """ Make sure that each section of a JSON resume follows the canonical order for that section. """
-        basics_keys = ["name", "label",  "email", "website", "phone", "url", "summary", "location", "profiles"]
-        basics = self.reorder_section(d.get("basics", []), basics_keys)
-        work_keys = ["name", "position", "url", "location", "startDate", "endDate", "summary", "highlights"]
-        work = [self.reorder_section(x, work_keys) for x in d.get("work", [])]
-        education_keys = ["institution", "url", "area", "studyType", "startDate", "endDate", "score", "courses"]
-        education = [self.reorder_section(x, education_keys) for x in d.get("education", [])]
-        project_keys = ["name", "startDate", "endDate", "description", "highlights", "url"]
-        projects = [self.reorder_section(x, project_keys) for x in d.get("projects", [])]
-        volunteer_keys = ["organization", "position", "url", "startDate", "endDate", "summary", "highlights"]
-        volunteer = [self.reorder_section(x, volunteer_keys) for x in d.get("volunteer", [])]
-        skills_keys = ["name", "level", "keywords"]
-        skills = [self.reorder_section(x, skills_keys) for x in d.get("skills", [])]
-        publication_keys = ["name", "publisher", "releaseDate", "url", "summary"]
-        publications = [self.reorder_section(x, publication_keys) for x in d.get("publications", [])]
-        language_keys = ["language", "fluency"]
-        languages = [self.reorder_section(x, language_keys) for x in d.get("languages", [])]
-        award_keys = ["title", "date", "awarder", "summary"]
-        awards = [self.reorder_section(x, award_keys) for x in d.get("awards", [])]
-        certificate_keys = []
-        certificates = [self.reorder_section(x, certificate_keys) for x in d.get("certificates", [])]
-        reference_keys = []
-        references = [self.reorder_section(x, reference_keys) for x in d.get("references", [])]
-        interest_keys = ["name""keywords"]
-        interests = [self.reorder_section(x, interest_keys) for x in d.get("interests", [])]
+        default_basics = {"name": "", "label": "", "email": "", "website": "", "phone": "", "url": "", "summary": "",
+                          "location": {}, "profiles": []}
+        basics = self.reorder_section(d.get("basics", []), default_basics)
+
+        default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
+                        "summary": "", "highlights": []}
+        work = [self.reorder_section(x, default_work) for x in d.get("work", [])]
+        default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
+                             "score": "", "courses": []}
+        education = [self.reorder_section(x, default_education) for x in d.get("education", [])]
+        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "highlights": []}
+        projects = [self.reorder_section(x, default_project) for x in d.get("projects", [])]
+        default_volunteer = {"organization": "", "position": "", "url": "", "startDate": "", "endDate": "",
+                             "summary": "", "highlights": []}
+        volunteer = [self.reorder_section(x, default_volunteer) for x in d.get("volunteer", [])]
+        default_skills = {"name": "", "level": "", "keywords": []}
+        skills = [self.reorder_section(x, default_skills) for x in d.get("skills", [])]
+        default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
+        publications = [self.reorder_section(x, default_publication) for x in d.get("publications", [])]
+        default_language = {"language": "", "fluency": ""}
+        languages = [self.reorder_section(x, default_language) for x in d.get("languages", [])]
+        default_award = {"title": "", "date": "", "awarder": "", "summary": ""}
+        awards = [self.reorder_section(x, default_award) for x in d.get("awards", [])]
+        default_certificate = {"date": "", "name": "", "issuer": ""}
+        certificates = [self.reorder_section(x, default_certificate) for x in d.get("certificates", [])]
+        default_reference = {"name": "", "reference": ""}
+        references = [self.reorder_section(x, default_reference) for x in d.get("references", [])]
+        default_interest = {"name": ""}
+        interests = [self.reorder_section(x, default_interest) for x in d.get("interests", [])]
 
         return {
             "basics": basics,
@@ -132,7 +136,7 @@ class Converter:
             "interests": interests
         }
 
-    def reorder_section(self, d, keys):
-        jr = {k: d[k] for k in keys}
-        return jr
-
+    def reorder_section(self, d: dict, default: dict):
+        """ Return a given resume section (1) in the canonical order and with (2) extraneous attributes removed """
+        jr = default | d
+        return {k: jr.get(k, None) for k in default.keys()}
