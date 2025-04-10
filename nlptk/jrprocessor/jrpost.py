@@ -48,6 +48,7 @@ class PostProcess:
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
         d = self._union_jsonresume(d)
+        d = self._normalize_jsonresume(d)
         is_valid_json = True
         validate = JRValidate()
         is_valid_jsonresume = validate.is_valid_json_resume(d)
@@ -141,3 +142,48 @@ class PostProcess:
         if isinstance(obj, list):
             return [self._strip_value(x) for x in obj]
         return obj.strip()
+
+    # WIP ----------
+
+    def _normalize_jsonresume(self, d):
+
+        default_basics = {"name": "", "label": "", "email": "", "website": "", "phone": "", "url": "", "summary": "",
+                          "location": {}, "profiles": []}
+        d["basics"] = default_basics | d["basics"]
+
+        default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
+                        "summary": "", "highlights": []}
+        d["work"] = [default_work | x for x in d["work"]]
+
+        default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
+                             "score": "", "courses": []}
+        d["education"] = [default_education | x for x in d["education"]]
+
+        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "highlights": []}
+        d["projects"] = [default_project | x for x in d["projects"]]
+
+        default_volunteer = {"organization": "", "position": "", "url": "", "startDate": "", "endDate": "",
+                             "summary": "", "highlights": []}
+        d["volunteer"] = [default_volunteer | x for x in d["volunteer"]]
+
+        default_skills = {"name": "", "level": "", "keywords": []}
+        d["skills"] = [default_skills | x for x in d["skills"]]
+
+        default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
+        d["publications"] = [default_publication | x for x in d["publications"]]
+
+        default_language = {"language": "", "fluency": ""}
+        d["languages"] = [default_language | x for x in d["languages"]]
+
+        default_award = {"title": "", "date": "", "awarder": "", "summary": ""}
+        d["awards"] = [default_award | x for x in d["awards"]]
+
+        default_certificate = {"date": "", "name": "", "issuer": ""}
+        d["certificates"] = [default_certificate | x for x in d["certificates"]]
+
+        default_reference = {"name": "", "reference": ""}
+        d["references"] = [default_reference | x for x in d["references"]]
+
+        default_interest = {"name": ""}
+        d["interests"] = [default_interest | x for x in d["interests"]]
+        return d
