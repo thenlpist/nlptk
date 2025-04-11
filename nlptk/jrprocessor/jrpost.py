@@ -154,7 +154,7 @@ class PostProcess:
         d["basics"] = default_basics | d["basics"]
 
         default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
-                        "summary": "", "highlights": []}
+                        "summary": "", "description": "",  "highlights": []}
         d["work"] = [default_work | x for x in d["work"]]
 
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
