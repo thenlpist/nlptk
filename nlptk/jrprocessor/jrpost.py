@@ -141,9 +141,10 @@ class PostProcess:
             return {k: self._strip_value(v) for k, v in obj.items()}
         if isinstance(obj, list):
             return [self._strip_value(x) for x in obj]
-        return obj.strip()
+        if isinstance(obj, str):
+            return obj.strip()
+        return obj
 
-    # WIP ----------
 
     def _normalize_jsonresume(self, d):
 
