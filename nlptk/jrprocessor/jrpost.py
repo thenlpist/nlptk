@@ -86,7 +86,7 @@ class PostProcess:
             "address": "",
             "postalcode": ""
         }
-        location = d2["basics"]["location"]
+        location = d2["basics"].get("location", default_location)
         d2["basics"]["location"] = location if isinstance(location, dict) else default_location
         d2["work"] = self._filter_out_empty(d2, "work")
         d2["education"] = self._filter_out_empty(d2, "education")
