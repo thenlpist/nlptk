@@ -63,6 +63,7 @@ class PostProcess:
 
     def _union_jsonresume(self, d):
         jr = {
+            "basics": {},
             "work": [],
             "education": [],
             "projects": [],
