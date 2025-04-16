@@ -1,0 +1,166 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json",
+  "basics": {
+    "name": "John Snow",
+    "label": "Full Stack Engineer",
+    "email": "snowy.john@gmail.com",
+    "phone": "(555) 905-1234",
+    "url": "https://www.me.com/snowy-john",
+    "summary": "Highly skilled and detail-oriented software engineer with expertise in multiple programming languages",
+    "location": {
+      "city": "Bangor",
+      "countryCode": "US",
+      "region": "Maine",
+      "address": "101 Cambridge Ave",
+      "postalCode": "04401"
+    },
+    "profiles": [
+      {
+        "url": "https://linkedin.com/johnksnow"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Bitbucket",
+      "location": "San Francisco, CA",
+      "position": "Senior Software Engineer",
+      "url": "https://www.atlassian.com/",
+      "startDate": "2024-03-14",
+      "endDate": "",
+      "summary": "Bitbucket is a code hosting and collaboration platform built for teams, primarily using Git, owned by Atlassian.",
+      "highlights": [
+        "Developed and maintained scalable web applications using React.js and Node.js, ensuring high performance and responsiveness.",
+        "Designed and implemented RESTful APIs to facilitate seamless communica/on between front-end and back-end systems."
+      ]
+    },
+    {
+      "name": "InnovateTech Labs",
+      "location": "Seattle, WA",
+      "position": "Senior Software Engineer",
+      "url": "https://innovate-techlabs.com/",
+      "startDate": "2021-09-15",
+      "endDate": "2024-02-28",
+      "summary": "IT consulting firm committed to driving innovation and delivering state-of-the-art solutions that propel businesses into the digital age.",
+      "highlights": [
+        "Supported senior developers in building and maintaining web applications using HTML, CSS, and JavaScript.",
+        "Assisted in the development of enterprise-level applications using Java and SAP ABAP, ensuring compliance with client requirements."
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Petro Rabigh",
+      "position": "Worker Committee",
+      "url": "https://example.com/",
+      "startDate": "2020-01-07",
+      "endDate": "2021-12-24",
+      "summary": "Petro Rabigh is a Saudi Arabian petrochemical company, a joint venture between Saudi Aramco and Sumitomo Chemical.",
+      "highlights": [
+        "Improvement of working conditions.",
+        "Improvement of employee productivity and work efficiency."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Washington",
+      "url": "https://www.washington.edu/",
+      "area": "Computer Science",
+      "startDate": "2019-09-09",
+      "endDate": "2024-06-13",
+      "studyType": "Bachelor of Science",
+      "courses": [
+        "CSE 110 Computer Science Principles"
+      ],
+      "minors": [
+        "Statistics"
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "Webby Nominee",
+      "awarder": "Webby Awards",
+      "date": "2020-06-21",
+      "summary": "Multiple wins and nominations, including Best Navigation & Visual Design."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Microsoft 365 Fundamentals Specialization",
+      "issuer": "Kaggle",
+      "date": "2025-02-01",
+      "url": "https://www.coursera.org/specializations/microsoft-365-fundamentals"
+    }
+  ],
+  "publications": [
+    {
+      "name": "Artificial Intelligence Spreading into the Marketing",
+      "publisher": "Cal State Fullerton",
+      "releaseDate": "2019-03-01",
+      "url": "https://arxiv.org/html/2501.10388v2",
+      "summary": "A retrospective study of how AI has impacted marketing."
+    }
+  ],
+  "skills": [
+    {
+      "name": "Languages",
+      "keywords": [
+        "Javascript",
+        "PHP",
+        "Bash"
+      ]
+    },
+    {
+      "name": "Frameworks",
+      "keywords": [
+        "Vue",
+        "React"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Fluent"
+    },
+    {
+      "language": "Korean",
+      "fluency": "Beginner"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Outdoor activities",
+      "keywords": [
+        "Running",
+        "Hiking"
+      ]
+    },
+    {
+      "name": "Travel"
+    }
+  ],
+  "references": [
+    {
+      "name": "Jeff Archibald",
+      "reference": "There are few people better-suited for a design, creative, or innovation-focused leadership role within an organization tasked with delivering outcomes above the norm."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Graduation project",
+      "description": "Omniboard Runtime",
+      "highlights": [
+        "Development of a versatile and accessible Flipper execution engine on Raspberry allowing to replace defective electronic boards during renovation.",
+        "Acquired skills in management of a long term project, agile method, presentation of a project, managing a team."
+      ],
+      "startDate": "2018-09-21",
+      "url": "https://omniboard-runtime.co.uk/",
+      "roles": [
+        "manager"
+      ]
+    }
+  ]
+}
