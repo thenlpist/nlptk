@@ -1,0 +1,258 @@
+{
+  "message": "OK",
+  "language": "bs",
+  "statuscode": 200,
+  "parser": "openai",
+  "is_valid_json": true,
+  "is_valid_jsonresume": true,
+  "generation_time": 12.61145305633545,
+  "num_chars": -1,
+  "num_tokens": -1,
+  "jsonresume": {
+    "basics": {
+      "name": "Ethan The Hulk Carter (OPENAI)",
+      "label": "",
+      "email": "the.ethan.carter@fictionalmail.com",
+      "website": "",
+      "phone": "+1 (555) 123-4567",
+      "url": "",
+      "summary": "Highly skilled and detail-oriented software developer with expertise in multiple programming languages, databases, frameworks, and cloud technologies. Proven ability to design, develop, and deploy scalable applications and systems. Adept at collaborating with cross-functional teams to deliver innovative solutions.",
+      "location": {
+        "city": "",
+        "address": "",
+        "region": "",
+        "countryCode": "",
+        "postalCode": ""
+      },
+      "profiles": []
+    },
+    "work": [
+      {
+        "name": "Tech Innovators Inc.",
+        "position": "Software Developer",
+        "url": "",
+        "location": "San Francisco, CA",
+        "startDate": "June 2021",
+        "endDate": "",
+        "summary": "",
+        "highlights": [
+          "Developed and maintained scalable web applications using React.js and Node.js, ensuring high performance and responsiveness.",
+          "Designed and implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.",
+          "Utilized AWS services (EC2, S3, RDS, Lambda) to deploy and manage cloud-based applications, reducing infrastructure costs by 20%.",
+          "Collaborated with data scientists to build predictive models using Python and R, integrating them into production systems.",
+          "Optimized database queries and improved data retrieval times by 30% using SQL and MongoDB."
+        ]
+      },
+      {
+        "name": "CodeCraft Solutions",
+        "position": "Junior Developer",
+        "url": "",
+        "location": "Austin, TX",
+        "startDate": "January 2019",
+        "endDate": "May 2021",
+        "summary": "",
+        "highlights": [
+          "Assisted in the development of enterprise-level applications using Java and SAP ABAP, ensuring compliance with client requirements.",
+          "Conducted unit testing using Junit4 and Maven, improving code quality and reducing bugs by 25%.",
+          "Worked with cross-functional teams to migrate legacy systems to SAP HANA Cloud, enhancing system performance and scalability.",
+          "Contributed to the development of data visualization tools using MATLAB and RStudio, enabling better decision-making for stakeholders."
+        ]
+      },
+      {
+        "name": "InnovateTech Labs",
+        "position": "Intern \u2013 Software Development",
+        "url": "",
+        "location": "Seattle, WA",
+        "startDate": "May 2018",
+        "endDate": "December 2018",
+        "summary": "",
+        "highlights": [
+          "Supported senior developers in building and maintaining web applications using HTML, CSS, and JavaScript.",
+          "Gained hands-on experience with Git and GitHub for version control and collaborative development.",
+          "Assisted in the deployment of applications on AWS, gaining exposure to cloud infrastructure and services.",
+          "Participated in code reviews and debugging sessions, improving overall code quality and team efficiency."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of California, Berkeley",
+        "url": "",
+        "area": "",
+        "studyType": "Bachelor of Science in Computer Science",
+        "startDate": "",
+        "endDate": "May 2018",
+        "score": "",
+        "courses": []
+      }
+    ],
+    "projects": [
+      {
+        "name": "E-Commerce Platform Development",
+        "startDate": "",
+        "endDate": "",
+        "url": "",
+        "description": "Built a full-stack e-commerce platform using React.js, Node.js, and MongoDB. Integrated AWS services (S3, EC2, RDS) for storage, hosting, and database management. Implemented REST APIs for seamless communication between front-end and back-end systems.",
+        "highlights": [],
+        "roles": []
+      },
+      {
+        "name": "Data Analysis and Visualization Tool",
+        "startDate": "",
+        "endDate": "",
+        "url": "",
+        "description": "Developed a data analysis tool using Python and R, enabling users to visualize complex datasets. Integrated the tool with Jupyter Notebook and RStudio for interactive data exploration. Deployed the application on AWS Lambda for scalable and cost-effective performance.",
+        "highlights": [],
+        "roles": []
+      },
+      {
+        "name": "SAP HANA Cloud Migration",
+        "startDate": "",
+        "endDate": "",
+        "url": "",
+        "description": "Led a team to migrate a legacy SAP system to SAP HANA Cloud, improving system performance by 40%. Optimized database queries and reduced data retrieval times by 25%. Ensured seamless integration with existing systems and minimal downtime during migration.",
+        "highlights": [],
+        "roles": []
+      }
+    ],
+    "volunteer": [],
+    "skills": [
+      {
+        "name": "Languages",
+        "level": "",
+        "keywords": [
+          "Java",
+          "Python",
+          "R",
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "C",
+          "C++",
+          "SAP ABAP",
+          "MATLAB"
+        ]
+      },
+      {
+        "name": "Databases",
+        "level": "",
+        "keywords": [
+          "SQL",
+          "MySQL",
+          "Oracle DB",
+          "MongoDB",
+          "SAP HANA"
+        ]
+      },
+      {
+        "name": "Frameworks",
+        "level": "",
+        "keywords": [
+          "React.js",
+          "Node.js",
+          "Maven",
+          "Junit4",
+          "Mongoose",
+          "REST API"
+        ]
+      },
+      {
+        "name": "Cloud Technologies",
+        "level": "",
+        "keywords": [
+          "AWS (IAM, EC2, S3, EBS, RDS, DynamoDB VPC, Lambda)",
+          "SAP HANA"
+        ]
+      },
+      {
+        "name": "Platforms",
+        "level": "",
+        "keywords": [
+          "Git",
+          "GitHub",
+          "IntelliJ",
+          "Eclipse",
+          "Visual Studio",
+          "Jupyter Notebook",
+          "RStudio"
+        ]
+      }
+    ],
+    "publications": [],
+    "languages": [],
+    "awards": [],
+    "certificates": [
+      {
+        "date": "",
+        "name": "AWS Certified Solutions Architect \u2013 Associate",
+        "issuer": ""
+      },
+      {
+        "date": "",
+        "name": "SAP Certified Development Associate \u2013 ABAP with SAP NetWeaver",
+        "issuer": ""
+      },
+      {
+        "date": "",
+        "name": "Oracle Certified Professional: MySQL Database Administrator",
+        "issuer": ""
+      }
+    ],
+    "references": [],
+    "interests": [
+      {
+        "name": "Open-source contributions"
+      },
+      {
+        "name": "Machine learning and AI"
+      },
+      {
+        "name": "Cloud computing and DevOps"
+      },
+      {
+        "name": "Data science and analytics"
+      }
+    ]
+  },
+  "confidence": {
+    "basics": {
+      "name": 0.0,
+      "email": 1.0,
+      "label": 1.0,
+      "phone": 0.0,
+      "location": {
+        "city": 1.0,
+        "region": 1.0,
+        "address": 1.0,
+        "postalCode": 1.0,
+        "countryCode": 1.0
+      }
+    },
+    "work": [
+      {
+        "name": 1.0,
+        "location": 1.0,
+        "position": 1.0
+      },
+      {
+        "name": 1.0,
+        "location": 1.0,
+        "position": 1.0
+      },
+      {
+        "name": 1.0,
+        "location": 1.0,
+        "position": 1.0
+      }
+    ],
+    "education": [
+      {
+        "institution": 1.0,
+        "studyType": 1.0,
+        "area": 1.0
+      }
+    ]
+  },
+  "text": "## Name: ##\n\n\u00a0Ethan The Hulk Carter  \n\n## Email: ##\n\n\u00a0the.ethan.carter@fictionalmail.com\n\n## LinkedIn: ##\n\n\u00a0linkedin.com/in/the-ethan-carter  \n\n## Phone: ##\n\n\u00a0+1 (555) 123-4567\n\n## Professional Summary ##\n\nHighly skilled and detail-oriented software developer with expertise in multiple programming languages, databases, frameworks, and cloud technologies. Proven ability to design, develop, and deploy scalable applications and systems. Adept at collaborating with cross-functional teams to deliver innovative solutions.\n\n## Languages: ##\n\nJava, Python, R, HTML, CSS, JavaScript, C, C++, SAP ABAP, MATLAB Databases: SQL, MySQL, Oracle DB, MongoDB, SAP HANA Frameworks: React.js, Node.js, Maven, Junit4, Mongoose, REST API Cloud Technologies: AWS (IAM, EC2, S3, EBS, RDS, DynamoDB VPC, Lambda), SAP HANA Cloud Platforms: Git, GitHub, IntelliJ, Eclipse, Visual Studio, Jupyter Notebook, RStudio.\n\n## Professional Experience ##\n\n## Software Developer ##\n\n  \n*Tech Innovators Inc.*\u00a0\u2013 San Francisco, CA  \n*June 2021 \u2013 Present*\n\n- Developed and maintained scalable web applications using React.js and Node.js, ensuring high performance and responsiveness.\n- Designed and implemented RESTful APIs to facilitate seamless communication between front-end and back-end systems.\n- Utilized AWS services (EC2, S3, RDS, Lambda) to deploy and manage cloud-based applications, reducing infrastructure costs by 20%.\n- Collaborated with data scientists to build predictive models using Python and R, integrating them into production systems.\n- Optimized database queries and improved data retrieval times by 30% using SQL and MongoDB.\n\n## Junior Developer ##\n\n  \n*CodeCraft Solutions*\u00a0\u2013 Austin, TX  \n*January 2019 \u2013 May 2021*\n\n- Assisted in the development of enterprise-level applications using Java and SAP ABAP, ensuring compliance with client requirements.\n- Conducted unit testing using Junit4 and Maven, improving code quality and reducing bugs by 25%.\n- Worked with cross-functional teams to migrate legacy systems to SAP HANA Cloud, enhancing system performance and scalability.\n- Contributed to the development of data visualization tools using MATLAB and RStudio, enabling better decision-making for stakeholders.\n\n## Intern \u2013 Software Development ##\n\n  \n*InnovateTech Labs*\u00a0\u2013 Seattle, WA  \n*May 2018 \u2013 December 2018*\n\n- Supported senior developers in building and maintaining web applications using HTML, CSS, and JavaScript.\n- Gained hands-on experience with Git and GitHub for version control and collaborative development.\n- Assisted in the deployment of applications on AWS, gaining exposure to cloud infrastructure and services.\n- Participated in code reviews and debugging sessions, improving overall code quality and team efficiency.\n\n## Education ##\n\n## Bachelor of Science in Computer Science ##\n\n  \n*University of California, Berkeley*\u00a0\u2013 Berkeley, CA  \n*Graduated: May 2018*\n\n## Certifications ##\n\n- AWS Certified Solutions Architect \u2013 Associate\n- SAP Certified Development Associate \u2013 ABAP with SAP NetWeaver\n- Oracle Certified Professional: MySQL Database Administrator\n\n## Projects ##\n\n## E-Commerce Platform Development ##\n\n- Built a full-stack e-commerce platform using React.js, Node.js, and MongoDB.\n- Integrated AWS services (S3, EC2, RDS) for storage, hosting, and database management.\n- Implemented REST APIs for seamless communication between front-end and back-end systems.\n\n## Data Analysis and Visualization Tool ##\n\n- Developed a data analysis tool using Python and R, enabling users to visualize complex datasets.\n- Integrated the tool with Jupyter Notebook and RStudio for interactive data exploration.\n- Deployed the application on AWS Lambda for scalable and cost-effective performance.\n\n## SAP HANA Cloud Migration ##\n\n- Led a team to migrate a legacy SAP system to SAP HANA Cloud, improving system performance by 40%.\n- Optimized database queries and reduced data retrieval times by 25%.\n- Ensured seamless integration with existing systems and minimal downtime during migration.\n\n## Interests ##\n\n- Open-source contributions\n- Machine learning and AI\n- Cloud computing and DevOps\n- Data science and analytics",
+  "model_version": "20250327.b"
+}

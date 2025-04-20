@@ -2,8 +2,6 @@ import json
 import itertools
 import Levenshtein
 
-# TODO - write another recursive function to roll-up the similarity scores
-
 
 def compare_dicts(dict1, dict2, threshold=0.8):
     """
@@ -98,70 +96,10 @@ def compute_similarity_result(s1, s2, threshold):
 
 
 
-
-
-
-# WIP ----------------------------------------------------------------------------------------------------
-def rollup(obj):
-    if isinstance(obj, dict):
-        if "similarity" in obj:  # is this a result dict
-            pass
-        else:
-            return {k: rollup(v) for k, v in obj.items()}
-    if isinstance(obj, list):
-        return [rollup(v) for v in obj]
-    else:
-        # n.b. this shouldn't happen
-        print(f"WARNING: obj is {obj}")
-
-
-
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # Example usage
 if __name__ == "__main__":
     # Sample nested dictionaries
-    dict1 = {
-        "personal": {
-            "name": "John Smith",
-            "email": "john.smith@example.com"
-        },
-        "address": {
-            "street": "123 Main Street",
-            "city": "New York",
-            "zip": "10001",
-            "country": {
-                "name": "USA",
-                "countrycode": "US"
-            }
-        },
-        "profiles": [{
-            "network": "Linkedin",
-            "url": "http://www.linkedin.com/johnsmith"
-        }]
-    }
-
-    dict2 = {
-        "personal": {
-            "name": "Jon Smith",  # Slightly different
-            "email": "john.smith@example.com",
-            "phone": "555-1234"  # Additional field
-        },
-        "address": {
-            "street": "123 Main St",  # Abbreviated
-            "city": "New York",
-            "zip": "10001",
-            "country": {
-                "name": "America",
-                "countrycode": "US"
-            }
-        },
-        "profiles": [{
-            "network": "Linkedin",
-            "url": "http://www.linkedin.com/johnsmith"
-        }]
-    }
 
     dict3 = {
         "basics": {
@@ -216,5 +154,4 @@ if __name__ == "__main__":
     result = compare_dicts(dict3, dict4)
 
     # Print results in a readable format
-
     print(json.dumps(result, indent=2))
