@@ -12,6 +12,7 @@ data/1_raw/
 data/0_external_raw/
 data/2_interim
 out_data
+WIP/
 
 aws_sync/
 aws_sync_2/
