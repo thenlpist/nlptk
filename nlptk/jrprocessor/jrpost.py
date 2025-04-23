@@ -29,7 +29,8 @@ logger.addHandler(sh)
 
 
 class PostProcess:
-    def __init__(self):
+    def __init__(self, parser_version=""):
+        self.parser_version = parser_version
         self.conv = Converter()
 
     def postprocess(self, parser_response: Union[str, dict]):
@@ -47,17 +48,27 @@ class PostProcess:
 
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
-        d = self._union_jsonresume(d)
-        d = self._normalize_jsonresume(d)
-        is_valid_json = True
-        validate = JRValidate()
-        is_valid_jsonresume = validate.is_valid_json_resume(d)
         try:
+            # print(f"d: {d}")
+            d = self._union_jsonresume(d)
+            d = self._normalize_jsonresume(d)
+            is_valid_json = True
+            validate = JRValidate()
+            # is_valid_jsonresume = validate.is_valid_json_resume(d)
+            # is_valid_jsonresume = True
+            # print()
+            #     try:
             outdata = self.conv.normalize_camel_case(d)
+            # logger.info("validating jsonschema...")
+            is_valid_jsonresume = validate.is_valid_json_resume(outdata)
+            # print()
         except:
-            logger.error("Error normalizing json resume: ")
-            logger.info(json.dumps(d))
+            logger.error(f"Error normalizing json resume: {json.dumps(d)}")
+            # logger.info(json.dumps(d))
             outdata = d
+
+        # is_valid_jsonresume = False
+
 
         return outdata, is_valid_json, is_valid_jsonresume
 
@@ -167,7 +178,13 @@ class PostProcess:
         default_basics = {"name": "", "label": "", "email": "", "website": "", "phone": "", "url": "", "summary": "",
                           "location": {}, "profiles": []}
         d["basics"] = default_basics | d["basics"]
+        d["basics"]["phone"] = str(d["basics"]["phone"])
         # d["basics"] = self._str_to_dict(d)
+        default_location = {"city": "", "region": "", "address": "", "postalCode": "", "countryCode": ""}
+        d["basics"]["location"] = default_location | d["basics"]["location"]
+        default_profile = {"url": "", "network": "", "username": ""}
+        d["basics"]["profiles"] = [default_profile | p for p in d["basics"]["profiles"]]
+
 
         default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
                         "summary": "", "description": "",  "highlights": []}
@@ -175,7 +192,7 @@ class PostProcess:
         d["work"] = [self._str_to_dict(x) for x in d["work"]]
 
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
-                             "score": "", "courses": []}
+                             "score": "", "minors": [],  "courses": []}
         d["education"] = [default_education | x for x in d["education"]]
 
         default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "roles": [], "highlights": []}
@@ -200,7 +217,7 @@ class PostProcess:
         default_award = {"title": "", "date": "", "awarder": "", "summary": ""}
         d["awards"] = [default_award | x for x in d["awards"]]
 
-        default_certificate = {"date": "", "name": "", "issuer": ""}
+        default_certificate = {"date": "", "name": "", "issuer": "", "url": ""}
         d["certificates"] = [default_certificate | x for x in d["certificates"]]
 
         default_reference = {"name": "", "reference": ""}

@@ -59,8 +59,8 @@
             "city",
             "region",
             "address",
-            "postalcode",
-            "countrycode"
+            "postalCode",
+            "countryCode"
           ],
           "properties": {
             "address": {
@@ -403,21 +403,11 @@
           "type": "object",
           "default": {},
           "required": [
-            "name",
-            "keywords"
+            "name"
           ],
           "properties": {
             "name": {
               "type": "string"
-            },
-            "keywords": {
-              "type": "array",
-              "default": [],
-              "items": [
-                {
-                  "type": "string"
-                }
-              ]
             }
           }
         }

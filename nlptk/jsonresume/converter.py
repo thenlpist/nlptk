@@ -91,17 +91,34 @@ class Converter:
 
     def reorder_all_sections(self, d):
         """ Make sure that each section of a JSON resume follows the canonical order for that section. """
+        # default_basics = {"name": "", "label": "", "email": "", "website": "", "phone": "", "url": "", "summary": "",
+        #                   "location": {}, "profiles": []}
+        # basics = self.reorder_section(d.get("basics", []), default_basics)
+
         default_basics = {"name": "", "label": "", "email": "", "website": "", "phone": "", "url": "", "summary": "",
                           "location": {}, "profiles": []}
-        basics = self.reorder_section(d.get("basics", []), default_basics)
+        basics = default_basics | d["basics"]
+        basics["phone"] = str(basics["phone"])
+
+        # d["basics"] = self._str_to_dict(d)
+        default_location = {"city": "", "region": "", "address": "", "postalCode": "", "countryCode": ""}
+        d["basics"]["location"] = default_location | d["basics"]["location"]
+        default_profile = {"url": "", "network": "", "username": ""}
+        d["basics"]["profiles"] = [default_profile | p for p in d["basics"]["profiles"]]
 
         default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
                         "summary": "", "highlights": []}
         work = [self.reorder_section(x, default_work) for x in d.get("work", [])]
+        # default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
+        #                      "score": "", "courses": []}
+        # education = [self.reorder_section(x, default_education) for x in d.get("education", [])]
+
+
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
-                             "score": "", "courses": []}
-        education = [self.reorder_section(x, default_education) for x in d.get("education", [])]
-        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "highlights": []}
+                             "score": "", "minors": [],  "courses": []}
+        education = [default_education | x for x in d["education"]]
+
+        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "roles": [], "highlights": []}
         projects = [self.reorder_section(x, default_project) for x in d.get("projects", [])]
         default_volunteer = {"organization": "", "position": "", "url": "", "startDate": "", "endDate": "",
                              "summary": "", "highlights": []}
@@ -114,7 +131,7 @@ class Converter:
         languages = [self.reorder_section(x, default_language) for x in d.get("languages", [])]
         default_award = {"title": "", "date": "", "awarder": "", "summary": ""}
         awards = [self.reorder_section(x, default_award) for x in d.get("awards", [])]
-        default_certificate = {"date": "", "name": "", "issuer": ""}
+        default_certificate = {"date": "", "name": "", "issuer": "", "url": ""}
         certificates = [self.reorder_section(x, default_certificate) for x in d.get("certificates", [])]
         default_reference = {"name": "", "reference": ""}
         references = [self.reorder_section(x, default_reference) for x in d.get("references", [])]

@@ -29,10 +29,9 @@ class JRValidate:
     # app_dir = Path(__file__).parent.resolve()
     # RESUME_SCHEMA_PATH = app_dir.joinpath("jsonresume_schema.json")
     app_dir = Path(__file__).parent.parent.resolve()
-    print(f"app_dir:  {app_dir}")
+    # print(f"app_dir:  {app_dir}")
     RESUME_SCHEMA_PATH = app_dir.joinpath("jrdatamodel", "jsonresume_schema_20250414.json")
-    # RESUME_SCHEMA_PATH = "/Users/chagerman/Work/nlptk/tests/resources/sample_parser_response.json"
-    print(f"RESUME_SCHEMA_PATH:  {RESUME_SCHEMA_PATH}")
+    # print(f"RESUME_SCHEMA_PATH:  {RESUME_SCHEMA_PATH}")
 
     def __init__(self):
         self.resume_schema = self._load_resume_schema()
