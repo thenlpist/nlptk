@@ -50,7 +50,7 @@ def main(data: dict):
 
 
 
-def compute_dict_v_text(text: str, jsonresume: dict, approach: str):
+def compute_dict_v_text(text: str, jsonresume: dict, approach: str, remainder:bool = False):
     result_dict, updated_text = compare_dict_to_text(jsonresume, text, approach=approach, threshold=0.8)
     out_text = post_clean(updated_text)
     # Aggregate similarity scores
@@ -62,7 +62,8 @@ def compute_dict_v_text(text: str, jsonresume: dict, approach: str):
     metrics["pct_extracted"] = 1 - (len(out_text) / len(text))
 
     # Precision = TP / (TP + FP)
-
+    if remainder:
+        return aggregated_result, out_text
     return aggregated_result
 
 

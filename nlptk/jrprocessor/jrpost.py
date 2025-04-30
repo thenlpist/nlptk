@@ -46,6 +46,7 @@ class PostProcess:
         if not d:
             return parser_response, is_valid_json, is_valid_jsonresume
 
+        d = self.conv.flatten(d)
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
         try:

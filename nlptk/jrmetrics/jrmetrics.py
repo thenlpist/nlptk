@@ -13,10 +13,10 @@ class JRMetrics:
         self.approach = approach
         self.threshold = threshold
 
-    def measure_dict_v_text(self, data: dict, colname):
+    def measure_dict_v_text(self, data: dict, colname, remainder:bool = False):
         text = data["text"]
         jsonresume = data[colname]
-        return compute_dict_v_text(text, jsonresume, self.approach)
+        return compute_dict_v_text(text, jsonresume, self.approach, remainder=remainder)
 
     def measure_dict_v_dict(self, data: dict, colname1, colname2):
         dict1 = data[colname1]
