@@ -17,14 +17,6 @@ sh = logging.StreamHandler()
 sh.setLevel(logging.INFO)
 formatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s")
 sh.setFormatter(formatter)
-
-# file_logger = bool(os.environ.get("FILE_LOGGER", False))
-# if file_logger:
-#     # Set up file handler
-#     LOGFILE = "LOGS/resume_parser.log"
-#     fh = handlers.RotatingFileHandler(LOGFILE, maxBytes=100000, backupCount=10)
-#     fh.setFormatter(formatter)
-#     logger.addHandler(fh)
 logger.addHandler(sh)
 
 
@@ -47,29 +39,25 @@ class PostProcess:
             return parser_response, is_valid_json, is_valid_jsonresume
 
         d = self.conv.flatten(d)
+        d = self.conv.filter_out_keys(d)
+
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
         try:
-            # print(f"d: {d}")
             d = self._union_jsonresume(d)
             d = self._normalize_jsonresume(d)
             is_valid_json = True
             validate = JRValidate()
-            # is_valid_jsonresume = validate.is_valid_json_resume(d)
-            # is_valid_jsonresume = True
-            # print()
-            #     try:
-            outdata = self.conv.normalize_camel_case(d)
-            # logger.info("validating jsonschema...")
+            d = self.conv.normalize_camel_case(d)
+            outdata = self.conv.reorder_all_sections(d)
             is_valid_jsonresume = validate.is_valid_json_resume(outdata)
-            # print()
+
         except:
             logger.error(f"Error normalizing json resume: {json.dumps(d)}")
             # logger.info(json.dumps(d))
             outdata = d
 
         # is_valid_jsonresume = False
-
 
         return outdata, is_valid_json, is_valid_jsonresume
 
@@ -99,6 +87,9 @@ class PostProcess:
             "address": "",
             "postalcode": ""
         }
+
+        basics = d2["basics"]
+        d2["basics"] = {} if not isinstance(basics, dict) else basics
         location = d2["basics"].get("location", default_location)
         d2["basics"]["location"] = location if isinstance(location, dict) else default_location
         d2["work"] = self._filter_out_empty(d2, "work")
@@ -160,9 +151,6 @@ class PostProcess:
             return obj.strip()
         return obj
 
-
-
-
     def _str_to_dict(self, d):
         list_atts = ["profiles", "highlights", "roles", "keywords"]
 
@@ -171,8 +159,6 @@ class PostProcess:
                 if d[k] == "":
                     d[k] = []
         return d
-
-
 
     def _normalize_jsonresume(self, d):
 
@@ -184,19 +170,20 @@ class PostProcess:
         default_location = {"city": "", "region": "", "address": "", "postalCode": "", "countryCode": ""}
         d["basics"]["location"] = default_location | d["basics"]["location"]
         default_profile = {"url": "", "network": "", "username": ""}
-        d["basics"]["profiles"] = [default_profile | p for p in d["basics"]["profiles"]]
-
+        profiles = [p for p in d["basics"]["profiles"] if p and isinstance(p, dict)]
+        d["basics"]["profiles"] = [default_profile | p for p in profiles]
 
         default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
-                        "summary": "", "description": "",  "highlights": []}
+                        "summary": "", "description": "", "highlights": []}
         d["work"] = [default_work | x for x in d["work"]]
         d["work"] = [self._str_to_dict(x) for x in d["work"]]
 
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
-                             "score": "", "minors": [],  "courses": []}
+                             "score": "", "minors": [], "courses": []}
         d["education"] = [default_education | x for x in d["education"]]
 
-        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "roles": [], "highlights": []}
+        default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "roles": [],
+                           "highlights": []}
         d["projects"] = [default_project | x for x in d["projects"]]
         d["projects"] = [self._str_to_dict(x) for x in d["projects"]]
 
@@ -207,7 +194,6 @@ class PostProcess:
         default_skills = {"name": "", "level": "", "keywords": []}
         d["skills"] = [default_skills | x for x in d["skills"]]
         d["skills"] = [self._str_to_dict(x) for x in d["skills"]]
-
 
         default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
         d["publications"] = [default_publication | x for x in d["publications"]]

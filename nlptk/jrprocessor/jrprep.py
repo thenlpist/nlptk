@@ -32,6 +32,7 @@ class PreProcess:
         self.apostrophe_pat = re.compile(
             "[‛\u0027\u02B9\u02BB\u02BC\u02BE\u02C8\u02EE\u0301\u0313\u0315\u055A\u05F3\u07F4\u07F5\u1FBF\u2018\u2019\u2032\uA78C\uFF07]",
             re.UNICODE)
+        self.other_pat = re.compile("[\u00a0\t]", re.UNICODE)
 
     def process(self, text):
         text = self._clean_input(text)
@@ -42,4 +43,5 @@ class PreProcess:
         text = self.single_quote_pat.sub("'", text)
         text = self.double_quote_pat.sub('"', text)
         text = self.apostrophe_pat.sub("'", text)
+        text = self.other_pat.sub(" ", text)
         return text
