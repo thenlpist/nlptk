@@ -1,6 +1,6 @@
 [project]
 name = "nlptk"
-version = "0.1.0"
+version = "1.1.0"
 description = "Natural Language Processing Tool Kit"
 authors = [
     { name = "The NLPist", email = "abobicesaevior@gmail.com" },
