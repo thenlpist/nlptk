@@ -44,4 +44,7 @@ class PreProcess:
         text = self.double_quote_pat.sub('"', text)
         text = self.apostrophe_pat.sub("'", text)
         text = self.other_pat.sub(" ", text)
+        text = re.sub(r"\|", " | ", text)
+        text = re.sub(r"##", "", text)
+        text = re.sub(" +", " ", text)
         return text
