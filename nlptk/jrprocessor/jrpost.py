@@ -27,6 +27,7 @@ class PostProcess:
 
     def postprocess(self, parser_response: Union[str, dict]):
         if isinstance(parser_response, str):
+            parser_response = self._strip_bad_chars(parser_response)
             response = self._clean_response(copy.copy(parser_response))
             d = json_repair.loads(response)
         elif isinstance(parser_response, dict):
@@ -60,6 +61,18 @@ class PostProcess:
         # is_valid_jsonresume = False
 
         return outdata, is_valid_json, is_valid_jsonresume
+
+
+    # --------------------------------------------------------------------------------
+    # Post-processing. Strip out bad unicode-ish characters that are generated
+    # --------------------------------------------------------------------------------
+    def _strip_bad_chars(self, returned_text):
+        pat1 = re.compile(" ?(u2202|u00a0|u00a),? ?")
+        pat2 = re.compile(r"\b(t )+")
+        t = pat1.sub("", returned_text)
+        t = pat2.sub("", t)
+        return t
+
 
     def _union_jsonresume(self, d):
         jr = {
