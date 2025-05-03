@@ -33,7 +33,7 @@ class TestResumePostProcessing(unittest.TestCase):
         assert response.json() == {"msg": "Hello, World!"}
 
 
-    def test_resume(self):
+    def test_raw_resume(self):
         pp = PostProcess()
         url = f"{BASE_URL}/raw_parse_resume_doc"
         print(f"URL: {url}")
@@ -51,11 +51,31 @@ class TestResumePostProcessing(unittest.TestCase):
         # print(json.dumps(raw_response.json()["jsonresume"], indent=2))
         parser_response = json.dumps(raw_response.json()["jsonresume"])
         d, is_valid_json, is_valid_jsonresume = pp.postprocess(parser_response)
-        print("-"*80)
+        print("-" * 80)
         print(f"is_valid_json: {is_valid_json},  is_valid_jsonresume: {is_valid_jsonresume}")
-        # print(json.dumps(d, indent=2))
-
+        print("-" * 80)
         print(raw_response.json()["text"])
+        print("-" * 80)
+        print(json.dumps(d, indent=2))
+
+
+    def test_resume(self):
+        # pp = PostProcess()
+        url = f"{BASE_URL}/parse_resume_doc"
+        print(f"URL: {url}")
+        cwd = Path.cwd()
+        resources_dir = cwd.joinpath("resources")
+        resume_path = resources_dir.joinpath("resumes/Caracci_2025_MetroHealth.docx")
+        assert resume_path.exists()
+
+        filename = resume_path.name
+        with open(resume_path, "rb") as fo:
+            encoded_string = base64.b64encode(fo.read())
+        payload = {"filename": filename, "filedata": encoded_string}
+        raw_response = requests.post(url=url, data=payload)
+        print(raw_response)
+        print(json.dumps(raw_response.json()["jsonresume"], indent=2))
+        # print(raw_response.json()["text"])
 
 
 if __name__ == '__main__':
