@@ -73,8 +73,13 @@ class TestResumePostProcessing(unittest.TestCase):
             encoded_string = base64.b64encode(fo.read())
         payload = {"filename": filename, "filedata": encoded_string}
         raw_response = requests.post(url=url, data=payload)
-        print(raw_response)
-        print(json.dumps(raw_response.json()["jsonresume"], indent=2))
+        d = raw_response.json()
+        assert d["statuscode"] == 200
+        assert d["statuscode"] == 200
+        assert d["is_valid_json"] == True
+        assert d["is_valid_jsonresume"] == True
+        # print(json.dumps(raw_response.json()["jsonresume"], indent=2))
+        print(json.dumps(d, indent=2))
         # print(raw_response.json()["text"])
 
 
