@@ -71,6 +71,8 @@ class PostProcess:
         pat2 = re.compile(r"\b(t )+")
         t = pat1.sub("", returned_text)
         t = pat2.sub("", t)
+        t = re.sub(r"\\ t", "", t)
+        t = re.sub(r"\\ ", "", t)
         return t
 
 
@@ -188,41 +190,51 @@ class PostProcess:
 
         default_work = {"name": "", "position": "", "url": "", "location": "", "startDate": "", "endDate": "",
                         "summary": "", "description": "", "highlights": []}
-        d["work"] = [default_work | x for x in d["work"]]
+        work = [p for p in d["work"] if p and isinstance(p, dict)]
+        d["work"] = [default_work | x for x in work]
         d["work"] = [self._str_to_dict(x) for x in d["work"]]
 
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
                              "score": "", "minors": [], "courses": []}
-        d["education"] = [default_education | x for x in d["education"]]
+        education = [p for p in d["education"] if p and isinstance(p, dict)]
+        d["education"] = [default_education | x for x in education]
 
         default_project = {"name": "", "startDate": "", "endDate": "", "url": "", "description": "", "roles": [],
                            "highlights": []}
-        d["projects"] = [default_project | x for x in d["projects"]]
+        projects = [p for p in d["projects"] if p and isinstance(p, dict)]
+        d["projects"] = [default_project | x for x in projects]
         d["projects"] = [self._str_to_dict(x) for x in d["projects"]]
 
         default_volunteer = {"organization": "", "position": "", "url": "", "startDate": "", "endDate": "",
                              "summary": "", "highlights": []}
-        d["volunteer"] = [default_volunteer | x for x in d["volunteer"]]
+        volunteer = [p for p in d["volunteer"] if p and isinstance(p, dict)]
+        d["volunteer"] = [default_volunteer | x for x in volunteer]
 
         default_skills = {"name": "", "level": "", "keywords": []}
         d["skills"] = [default_skills | x for x in d["skills"]]
         d["skills"] = [self._str_to_dict(x) for x in d["skills"]]
 
         default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
-        d["publications"] = [default_publication | x for x in d["publications"]]
+        publications = [p for p in d["publications"] if p and isinstance(p, dict)]
+        d["publications"] = [default_publication | x for x in publications]
 
         default_language = {"language": "", "fluency": ""}
-        d["languages"] = [default_language | x for x in d["languages"]]
+        languages = [p for p in d["languages"] if p and isinstance(p, dict)]
+        d["languages"] = [default_language | x for x in languages]
 
         default_award = {"title": "", "date": "", "awarder": "", "summary": ""}
-        d["awards"] = [default_award | x for x in d["awards"]]
+        awards = [p for p in d["awards"] if p and isinstance(p, dict)]
+        d["awards"] = [default_award | x for x in awards]
 
         default_certificate = {"date": "", "name": "", "issuer": "", "url": ""}
-        d["certificates"] = [default_certificate | x for x in d["certificates"]]
+        certificates = [p for p in d["certificates"] if p and isinstance(p, dict)]
+        d["certificates"] = [default_certificate | x for x in certificates]
 
         default_reference = {"name": "", "reference": ""}
-        d["references"] = [default_reference | x for x in d["references"]]
+        references = [p for p in d["references"] if p and isinstance(p, dict)]
+        d["references"] = [default_reference | x for x in references]
 
         default_interest = {"name": ""}
-        d["interests"] = [default_interest | x for x in d["interests"]]
+        interests = [p for p in d["interests"] if p and isinstance(p, dict)]
+        d["interests"] = [default_interest | x for x in interests]
         return d
