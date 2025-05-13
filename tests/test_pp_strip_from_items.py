@@ -1,6 +1,8 @@
 import json
 import unittest
+
 from nlptk import PostProcess
+
 
 class TestPostProcessingListItems(unittest.TestCase):
 
@@ -74,7 +76,33 @@ class TestPostProcessingListItems(unittest.TestCase):
             "education": [],
             "projects": [],
             "volunteer": [],
-            "skills": [],
+            "skills": [
+                {
+                    "name": "- AI-Driven Process Optimization",
+                    "level": "",
+                    "keywords": []
+                },
+                {
+                    "name": "- IoT & Blockchain Integration",
+                    "level": "",
+                    "keywords": []
+                },
+                {
+                    "name": "\\ SAP S/4HANA & Kinaxis RapidResponse",
+                    "level": "",
+                    "keywords": []
+                },
+                {
+                    "name": "\\ \\ tESG Compliance",
+                    "level": "",
+                    "keywords": []
+                },
+                {
+                    "name": "P&L Accountability $15M+ Budgets)",
+                    "level": "",
+                    "keywords": []
+                }
+            ],
             "publications": [],
             "languages": [],
             "awards": [],
@@ -82,9 +110,21 @@ class TestPostProcessingListItems(unittest.TestCase):
             "references": [],
             "interests": []
         }
-        d2 = pp.postprocess(d)
+        d2, is_valid_json, is_valid_jsonresume = pp.postprocess(d)
+        assert is_valid_json == True
+        assert is_valid_jsonresume == True
         print(json.dumps(d2, indent=2))
 
+        # Confirm leading hyphen has been stripped from work experiences
+        work = d2["work"]
+        for w in work:
+            for h in w["highlights"]:
+                assert h.startswith("-") != True
+        # Confirm leading hyphen and \\ has been stripped from skills
+        skills = d2["skills"]
+        for s in skills:
+            assert s["name"].startswith("-") != True
+            assert s["name"].startswith("\\") != True
 
 if __name__ == '__main__':
     unittest.main()

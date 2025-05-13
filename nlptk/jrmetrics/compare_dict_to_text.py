@@ -47,6 +47,7 @@ def main(data: dict):
 
     # Print results in a readable format
     print(json.dumps(aggregated_result, indent=2))
+    return metrics
 
 
 
