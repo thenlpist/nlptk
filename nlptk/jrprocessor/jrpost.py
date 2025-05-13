@@ -76,11 +76,16 @@ class PostProcess:
         return t
 
 
-    def _clean_list_item(self, item, key):
+    def _clean_dict_item(self, item, key):
         text = item[key]
         t = re.sub("^- ", "", text)
         item[key] = t
         return item
+
+    def _clean_work_highlights(self, work_item):
+        work_item["highlights"] = [re.sub("^- ", "", h) for h in work_item["highlights"]]
+        return work_item
+
 
     def _union_jsonresume(self, d):
         jr = {
@@ -199,9 +204,7 @@ class PostProcess:
         work = [p for p in d["work"] if p and isinstance(p, dict)]
         d["work"] = [default_work | x for x in work]
         d["work"] = [self._str_to_dict(x) for x in d["work"]]
-        # WIP ----------------------------------------------------------------------
-        # d["skills"] = [self._clean_list_item(x, "name") for x in d["skills"]]
-
+        d["work"] = [self._clean_work_highlights(w) for w in d["work"]]
         default_education = {"institution": "", "url": "", "area": "", "studyType": "", "startDate": "", "endDate": "",
                              "score": "", "minors": [], "courses": []}
         education = [p for p in d["education"] if p and isinstance(p, dict)]
@@ -221,7 +224,7 @@ class PostProcess:
         default_skills = {"name": "", "level": "", "keywords": []}
         d["skills"] = [default_skills | x for x in d["skills"]]
         d["skills"] = [self._str_to_dict(x) for x in d["skills"]]
-        d["skills"] = [self._clean_list_item(x, "name") for x in d["skills"]]
+        d["skills"] = [self._clean_dict_item(x, "name") for x in d["skills"]]
 
 
         default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
