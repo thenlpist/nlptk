@@ -242,11 +242,13 @@ def regex_replace(value, updated_text):
     term = clean_text(value.strip())
     # term = re.escape(value)
 
+    #FIXME - the following has a problem with strings containing a backslash!
     if len(term) <= 2:
         pat = re.compile(fr"\b({term})\b")
     else:
         # print(value)
         pat = re.compile(term)
+
     m = pat.search(updated_text)
     if m:
         updated_text = pat.sub("", updated_text, count=1)

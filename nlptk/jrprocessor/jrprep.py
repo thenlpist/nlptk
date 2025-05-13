@@ -1,7 +1,5 @@
 import logging
-import os
 import re
-from logging import handlers
 
 from nlptk.jrprocessor.regex_patterns import initial_bullet_pattern
 
@@ -33,6 +31,7 @@ class PreProcess:
             "[‛\u0027\u02B9\u02BB\u02BC\u02BE\u02C8\u02EE\u0301\u0313\u0315\u055A\u05F3\u07F4\u07F5\u1FBF\u2018\u2019\u2032\uA78C\uFF07]",
             re.UNICODE)
         self.other_pat = re.compile("[\u00a0\t]", re.UNICODE)
+        self.repeat_pat = re.compile(r"\b(\w+)\s+\1\s+\1(?:\s+\1)*\b")
 
     def process(self, text):
         text = self._clean_input(text)
@@ -44,7 +43,9 @@ class PreProcess:
         text = self.double_quote_pat.sub('"', text)
         text = self.apostrophe_pat.sub("'", text)
         text = self.other_pat.sub(" ", text)
+        text = re.sub("\t", "", text)
         text = re.sub(r"\|", " | ", text)
         text = re.sub(r"##", "", text)
         text = re.sub(" +", " ", text)
+        text = self.repeat_pat.sub("", text)
         return text
