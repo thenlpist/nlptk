@@ -8,3 +8,4 @@ from nlptk.jrmetrics.compare_dicts import compute_dict_v_dict
 from nlptk.jrmetrics.compare_dict_to_text import compute_dict_v_text
 from nlptk.jrmetrics.rollup import aggregate_similarity
 from nlptk.jsonresume.converter import Converter
+from nlptk.util.file_reader import FileReader
