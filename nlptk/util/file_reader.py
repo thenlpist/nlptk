@@ -1,14 +1,11 @@
 import logging
 import os.path
 import re
-from logging import handlers
 from pathlib import Path
 
 import mammoth
 import pymupdf
 from markdownify import markdownify as md
-from status_codes import StatusCode
-from utils import strtobool
 
 from nlptk import PreProcess
 
@@ -20,14 +17,6 @@ sh = logging.StreamHandler()
 sh.setLevel(LOGLEVEL)
 formatter = logging.Formatter("%(asctime)s: %(levelname)s: %(message)s")
 sh.setFormatter(formatter)
-
-file_logger = strtobool(os.environ.get("FILE_LOGGER", False))
-if file_logger:
-    # Set up file handler
-    LOGFILE = "LOGS/resume_parser.log"
-    fh = handlers.RotatingFileHandler(LOGFILE, maxBytes=100000, backupCount=10)
-    fh.setFormatter(formatter)
-    logger.addHandler(fh)
 logger.addHandler(sh)
 
 
