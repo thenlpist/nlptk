@@ -9,7 +9,7 @@ from nlptk.jrmetrics.rollup import aggregate_similarity
 
 
 
-class JsonresumeVsText:
+class DictVsText:
 
     def main(self, data: dict):
         text = data["text"]
@@ -300,7 +300,7 @@ if __name__ == "__main__":
     data = json.loads(open(sample_path).read())
 
 
-    dvt = JsonresumeVsText()
+    dvt = DictVsText()
     # dvt.main(data)
 
     t1 = time.time()
