@@ -228,7 +228,7 @@ class DictVsText:
             }
             return result, updated_text
 
-        print(value)
+        # print(value)
         term = self.clean_text(value.strip())
         term = re.escape(term)
 
