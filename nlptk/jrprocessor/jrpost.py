@@ -38,6 +38,7 @@ class PostProcess:
 
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
+        d = self._strip_value(d)  # remove any leading/training whitespace from values
         try:
             d = self._union_jsonresume(d)
             d = self._normalize_jsonresume(d)
