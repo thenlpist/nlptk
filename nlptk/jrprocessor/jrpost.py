@@ -1,14 +1,15 @@
 import copy
-import logging
-import os
-import re
-from logging import handlers
-from typing import Union
 import json
+import logging
+import re
+from typing import Optional
+from typing import Union
+
 import json_repair
 
-from nlptk.jsonresume.converter import Converter
 from nlptk.jrprocessor.jr_validation import JRValidate
+from nlptk.jrprocessor.regex_patterns import RegexPatterns as pat
+from nlptk.jsonresume.converter import Converter
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -25,19 +26,12 @@ class PostProcess:
         self.parser_version = parser_version
         self.conv = Converter()
 
-    def postprocess(self, parser_response: Union[str, dict]):
-        if isinstance(parser_response, str):
-            parser_response = self._strip_bad_chars(parser_response)
-            response = self._clean_response(copy.copy(parser_response))
-            d = json_repair.loads(response)
-        elif isinstance(parser_response, dict):
-            d = parser_response
-        else:
-            raise ValueError("postprocess argument must be either a str or dict")
+    def postprocess(self, raw_response: Union[str, dict]):
+        d: dict = self._coerce_to_json(raw_response)
         is_valid_json = False
         is_valid_jsonresume = False
         if not d:
-            return parser_response, is_valid_json, is_valid_jsonresume
+            return raw_response, is_valid_json, is_valid_jsonresume
 
         d = self.conv.flatten(d)
         d = self.conv.filter_out_keys(d)
@@ -54,14 +48,27 @@ class PostProcess:
             is_valid_jsonresume = validate.is_valid_json_resume(outdata)
 
         except:
-            logger.error(f"Error normalizing json resume: {json.dumps(d)}")
-            # logger.info(json.dumps(d))
+            logger.error(f"Error normalizing json resume for resume id: {d['id']}")
             outdata = d
-
-        # is_valid_jsonresume = False
-
         return outdata, is_valid_json, is_valid_jsonresume
 
+    # --------------------------------------------------------------------------------
+    # Coerce raw string response into a JSON object if possible. Try to "save" JSON where possible.
+    # --------------------------------------------------------------------------------
+    def _coerce_to_json(self, raw_response: str) -> Optional[dict]:
+        if isinstance(raw_response, str):
+            parser_response = self._strip_bad_chars(raw_response)
+            response = self._clean_response(copy.copy(parser_response))
+            d = json_repair.loads(response)
+        elif isinstance(raw_response, dict):
+            d = raw_response
+        else:
+            raise ValueError("postprocess argument must be either a str or dict")
+        if isinstance(d, list):
+            d = self._coerce_to_json(d[0])
+        if isinstance(d, dict):
+            return d
+        return None
 
     # --------------------------------------------------------------------------------
     # Post-processing. Strip out bad unicode-ish characters that are generated
@@ -73,8 +80,8 @@ class PostProcess:
         t = pat2.sub("", t)
         t = re.sub(r"\\ t", "", t)
         t = re.sub(r"\\ ", "", t)
+        t = pat.repeat_pat.sub("", t)
         return t
-
 
     def _clean_dict_item(self, item, key):
         text = item[key]
@@ -82,14 +89,13 @@ class PostProcess:
         t = re.sub(r"\\ t", "", t)
         t = re.sub(r"\\ ", "", t)
 
-
         item[key] = t
         return item
 
     def _clean_work_highlights(self, work_item):
-        work_item["highlights"] = [re.sub("^- ", "", h) for h in work_item["highlights"]]
+        # check if item is string since it is possible a dict etc was generated instead. sigh!
+        work_item["highlights"] = [re.sub("^- ", "", h) for h in work_item["highlights"] if isinstance(h, str)]
         return work_item
-
 
     def _union_jsonresume(self, d):
         jr = {
@@ -229,7 +235,6 @@ class PostProcess:
         d["skills"] = [default_skills | x for x in d["skills"]]
         d["skills"] = [self._str_to_dict(x) for x in d["skills"]]
         d["skills"] = [self._clean_dict_item(x, "name") for x in d["skills"]]
-
 
         default_publication = {"name": "", "publisher": "", "releaseDate": "", "url": "", "summary": ""}
         publications = [p for p in d["publications"] if p and isinstance(p, dict)]

@@ -1,19 +1,18 @@
-import time
 import json
 import re
+import time
 from pathlib import Path
 
 import Levenshtein
+
 from nlptk.jrmetrics.rollup import aggregate_similarity
-
-
 
 
 class DictVsText:
 
     def main(self, data: dict):
         text = data["text"]
-        jsonresume = data["jsonresume"]
+        jr = data["jsonresume"]
 
         # approach = "levenshtein"
         approach = "regex"
@@ -52,9 +51,7 @@ class DictVsText:
         print(json.dumps(aggregated_result, indent=2))
         return metrics
 
-
-
-    def compute_dict_v_text(self, text: str, jsonresume: dict, approach: str, remainder:bool = False):
+    def compute_dict_v_text(self, text: str, jsonresume: dict, approach: str, remainder: bool = False):
         result_dict, updated_text = self.compare_dict_to_text(jsonresume, text, approach=approach, threshold=0.8)
         out_text = self.post_clean(updated_text)
         # Aggregate similarity scores
@@ -69,9 +66,6 @@ class DictVsText:
         if remainder:
             return aggregated_result, out_text
         return aggregated_result
-
-
-
 
     def compare_dict_to_text(self, dictionary, text, approach="default", threshold=0.8):
         """
@@ -152,9 +146,6 @@ class DictVsText:
 
         return result, updated_text
 
-
-
-
     # def clean_plus(s):
     #     return re.sub(r"[\+]", "\\+", s)
 
@@ -167,7 +158,6 @@ class DictVsText:
         s = re.sub("[\n ][-–] ?", "", s)
         return s
 
-
     def post_clean(self, s):
         s = re.sub("\n[\n ]+", "\n", s)
         s = re.sub(
@@ -175,7 +165,6 @@ class DictVsText:
             "", s, flags=re.IGNORECASE)
         s = re.sub("\n\n+", "\n", s)
         return s
-
 
     def compute_coverage(self, value, updated_text, approach, threshold):
         match approach:
@@ -186,7 +175,6 @@ class DictVsText:
             case _:
                 result, updated_text = self.string_replace(value, updated_text)
         return result, updated_text
-
 
     def levenshtein_replace(self, value, updated_text, threshold):
         # For Levenshtein, we need to check each word/phrase in the document
@@ -229,7 +217,6 @@ class DictVsText:
             }
         return result, updated_text
 
-
     def regex_replace(self, value, updated_text):
         # handled case that value is empty list (e.g. empty work highlights)
         if not value:
@@ -243,9 +230,9 @@ class DictVsText:
 
         # print(value)
         term = self.clean_text(value.strip())
-        # term = re.escape(value)
+        term = re.escape(term)
 
-        #FIXME - the following has a problem with strings containing a backslash!
+        # FIXME - the following has a problem with strings containing a backslash!
         if len(term) <= 2:
             pat = re.compile(fr"\b({term})\b")
         else:
@@ -269,7 +256,6 @@ class DictVsText:
                 "is_empty": False
             }
         return result, updated_text
-
 
     def string_replace(self, value, updated_text):
         if value in updated_text:
@@ -298,7 +284,6 @@ if __name__ == "__main__":
     home = Path.home()
     sample_path = home.joinpath("Data/Jobscan/Resumes/samples/sample_parser_response.json")
     data = json.loads(open(sample_path).read())
-
 
     dvt = DictVsText()
     # dvt.main(data)
