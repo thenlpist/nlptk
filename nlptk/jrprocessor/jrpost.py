@@ -45,6 +45,7 @@ class PostProcess:
             is_valid_json = True
             validate = JRValidate()
             d = self.conv.normalize_camel_case(d)
+            d = self._reformat_dates(d)
             outdata = self.conv.reorder_all_sections(d)
             is_valid_jsonresume = validate.is_valid_json_resume(outdata)
 
@@ -261,3 +262,20 @@ class PostProcess:
         interests = [p for p in d["interests"] if p and isinstance(p, dict)]
         d["interests"] = [default_interest | x for x in interests]
         return d
+
+
+
+    def _reformat_dates(self, obj):
+        """Recursive function to reformat date strings from YYYY-MM-DD to YYYY-MM"""
+        date_keys = ["startdate", "enddate", "date", "releasedate", "startDate", "endDate", "date", "releaseDate"]
+        if isinstance(obj, list):
+            return [self._reformat_dates(v) for v in obj]
+        elif isinstance(obj, dict):
+            for k in date_keys:
+                if k in obj:
+                    date_string = obj[k]
+                    if not date_string == "":
+                        obj[k] = re.sub("([0-9]{4}-[0-9]{2})-[0-9]{2}", r"\1", date_string)
+            return {k.lower(): self._reformat_dates(v) for k, v in obj.items()}
+        else:
+            return obj
