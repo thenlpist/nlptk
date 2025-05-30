@@ -1,5 +1,4 @@
 import copy
-import json
 import logging
 import re
 from typing import Optional
@@ -32,13 +31,11 @@ class PostProcess:
         is_valid_jsonresume = False
         if not d:
             return raw_response, is_valid_json, is_valid_jsonresume
-
         d = self.conv.flatten(d)
         d = self.conv.filter_out_keys(d)
-
         d = self._none_to_empty_str(d)  # convert NONE values to ""
         d = self._strip_value(d)  # remove any leading/training whitespace from values
-        d = self._strip_value(d)  # remove any leading/training whitespace from values
+
         try:
             d = self._union_jsonresume(d)
             d = self._normalize_jsonresume(d)
@@ -263,8 +260,6 @@ class PostProcess:
         d["interests"] = [default_interest | x for x in interests]
         return d
 
-
-
     def _reformat_dates(self, obj):
         """Recursive function to reformat date strings from YYYY-MM-DD to YYYY-MM"""
         date_keys = ["startdate", "enddate", "date", "releasedate", "startDate", "endDate", "date", "releaseDate"]
@@ -276,6 +271,6 @@ class PostProcess:
                     date_string = obj[k]
                     if not date_string == "":
                         obj[k] = re.sub("([0-9]{4}-[0-9]{2})-[0-9]{2}", r"\1", date_string)
-            return {k.lower(): self._reformat_dates(v) for k, v in obj.items()}
+            return {k: self._reformat_dates(v) for k, v in obj.items()}
         else:
             return obj
