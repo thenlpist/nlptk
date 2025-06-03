@@ -26,6 +26,7 @@ class PostProcess:
         self.conv = Converter()
 
     def postprocess(self, raw_response: Union[str, dict]):
+        # logger.info(f"type(raw_response): {type(raw_response)}")
         d: dict = self._coerce_to_json(raw_response)
         is_valid_json = False
         is_valid_jsonresume = False
@@ -64,10 +65,10 @@ class PostProcess:
         else:
             raise ValueError("postprocess argument must be either a str or dict")
         if isinstance(d, list):
-            if len(d) > 0:
-                d = self._coerce_to_json(d[0])
-            else:
+            if len(d) == 0:
                 return None
+            else:
+                d = self._coerce_to_json(d[0])
         if isinstance(d, dict):
             return d
         return None

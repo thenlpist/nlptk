@@ -25,6 +25,7 @@ aws_sync_2/
 *.numbers
 *.xlsx
 
+!jsonresume_schema_20250414.json
 
 *.zip
 models/
