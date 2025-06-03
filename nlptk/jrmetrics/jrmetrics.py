@@ -26,8 +26,9 @@ class JRMetrics:
 
 # Example usage
 if __name__ == "__main__":
-    home = Path.home()
-    sample_path = home.joinpath("Data/Jobscan/Resumes/v1.1model_analysis/data2/merged_sample.json")
+    cwd = Path.cwd()
+    resources_dir = cwd.joinpath("resources")
+    sample_path = resources_dir.joinpath("merged_sample.json")
     data = json.loads(open(sample_path).read())
 
     jrm = JRMetrics(approach="regex")

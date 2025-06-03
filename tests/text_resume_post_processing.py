@@ -39,7 +39,7 @@ class TestResumePostProcessing(unittest.TestCase):
         print(f"URL: {url}")
         cwd = Path.cwd()
         resources_dir = cwd.joinpath("resources")
-        resume_path = resources_dir.joinpath("resumes/Caracci_2025_MetroHealth.docx")
+        resume_path = resources_dir.joinpath("resumes/resume_1.docx")
         assert resume_path.exists()
 
         filename = resume_path.name
@@ -65,7 +65,7 @@ class TestResumePostProcessing(unittest.TestCase):
         print(f"URL: {url}")
         cwd = Path.cwd()
         resources_dir = cwd.joinpath("resources")
-        resume_path = resources_dir.joinpath("resumes/Caracci_2025_MetroHealth.docx")
+        resume_path = resources_dir.joinpath("resumes/resume_1.docx")
         assert resume_path.exists()
 
         filename = resume_path.name

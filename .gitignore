@@ -13,12 +13,15 @@ data/0_external_raw/
 data/2_interim
 out_data
 WIP/
+local
 
 aws_sync/
 aws_sync_2/
+*.docx
+*.pdf
 *.csv
 *.jsonl
-#*.json
+*.json
 *.numbers
 *.xlsx
 

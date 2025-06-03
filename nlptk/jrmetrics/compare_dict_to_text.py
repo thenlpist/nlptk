@@ -47,6 +47,7 @@ def main(data: dict):
 
     # Print results in a readable format
     print(json.dumps(aggregated_result, indent=2))
+    return metrics
 
 
 
@@ -241,11 +242,13 @@ def regex_replace(value, updated_text):
     term = clean_text(value.strip())
     # term = re.escape(value)
 
+    #FIXME - the following has a problem with strings containing a backslash!
     if len(term) <= 2:
         pat = re.compile(fr"\b({term})\b")
     else:
         # print(value)
         pat = re.compile(term)
+
     m = pat.search(updated_text)
     if m:
         updated_text = pat.sub("", updated_text, count=1)
@@ -287,10 +290,4 @@ def string_replace(value, updated_text):
     return result, updated_text
 
 
-# Example usage
-if __name__ == "__main__":
-    home = Path.home()
-    sample_path = home.joinpath("Data/Jobscan/Resumes/samples/sample_parser_response.json")
-    data = json.loads(open(sample_path).read())
 
-    main(data)

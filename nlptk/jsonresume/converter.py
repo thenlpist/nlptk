@@ -63,7 +63,7 @@ class Converter:
         else:
             return obj
 
-    def filter_out_keys(self, d):
+    def filter_out_keys(self, d: dict):
         """ Recursive function to remove unwanted/unnecessary keys from a `data` object """
         keys_to_remove = {"meta", "uuid", "image", "highlights__re", "a_nrea",
                           "courses__st", "minors__st", "selected"}

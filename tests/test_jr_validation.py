@@ -1,3 +1,4 @@
+from pathlib import Path
 import json
 import unittest
 
@@ -9,7 +10,10 @@ class TestJRValidation(unittest.TestCase):
     def test_validation(self):
         valid = JRValidate()
         # d = json.loads(self.raw_response)
-        data = json.loads(open("/Users/chagerman/Data/Jobscan/Resumes/samples/sample_parser_response.json").read())
+        cwd = Path.cwd()
+        resources_dir = cwd.joinpath("resources")
+        sample_path = resources_dir.joinpath("sample_parser_response.json")
+        data = json.loads(open(sample_path).read())
         d = data["jsonresume"]
         is_valid_jsonresume = valid.is_valid_json_resume(d)
 

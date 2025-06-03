@@ -12,10 +12,11 @@ from pathlib import Path
 
 
 class DemoJsonResumeAnalysis(unittest.TestCase):
-    home = Path.home()
-    data_dir = home.joinpath("Data/Jobscan/Resumes/v1.1model_analysis/data2")
-    inpath = data_dir.joinpath("merged_data.jsonl")
-    data = [json.loads(x) for x in open(inpath)]
+
+    cwd = Path.cwd()
+    resources_dir = cwd.joinpath("resources")
+    sample_path = resources_dir.joinpath("merged_data.jsonl")
+    data = [json.loads(x) for x in open(sample_path)]
 
     def test_dict_v_dict(self):
         idx = 0
