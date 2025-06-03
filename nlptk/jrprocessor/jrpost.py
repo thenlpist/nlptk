@@ -64,7 +64,10 @@ class PostProcess:
         else:
             raise ValueError("postprocess argument must be either a str or dict")
         if isinstance(d, list):
-            d = self._coerce_to_json(d[0])
+            if len(d) > 0:
+                d = self._coerce_to_json(d[0])
+            else:
+                return None
         if isinstance(d, dict):
             return d
         return None
