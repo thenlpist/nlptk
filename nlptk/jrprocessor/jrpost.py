@@ -62,6 +62,11 @@ class PostProcess:
             d = json_repair.loads(response)
         elif isinstance(raw_response, dict):
             d = raw_response
+        elif isinstance(raw_response, list):
+            if len(raw_response) == 0:
+                return None
+            else:
+                d = self._coerce_to_json(raw_response[0])
         else:
             raise ValueError(f"_coerce_to_json argument must be either a str or dict. Argument type: {type(raw_response)}")
         if isinstance(d, list):
