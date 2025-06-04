@@ -63,7 +63,7 @@ class PostProcess:
         elif isinstance(raw_response, dict):
             d = raw_response
         else:
-            raise ValueError("postprocess argument must be either a str or dict")
+            raise ValueError(f"_coerce_to_json argument must be either a str or dict. Argument type: {type(raw_response)}")
         if isinstance(d, list):
             if len(d) == 0:
                 return None
