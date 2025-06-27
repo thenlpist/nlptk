@@ -1,3 +1,5 @@
 jsonschema
 json-repair
 levenshtein
+ctranslate2
+transformers

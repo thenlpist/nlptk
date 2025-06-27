@@ -8,7 +8,9 @@ authors = [
 dependencies = [
     "jsonschema",
     "json-repair",
-    "levenshtein"
+    "levenshtein",
+    "ctranslate2",
+    "transformers"
 ]
 requires-python = ">=3.10"
 readme = "README.md"

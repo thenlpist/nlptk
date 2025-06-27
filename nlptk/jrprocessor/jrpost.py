@@ -93,7 +93,8 @@ class PostProcess:
 
     def _clean_dict_item(self, item, key):
         text = item[key]
-        t = re.sub("^- ", "", text)
+        t = re.sub("^u2022 ?", "", text)
+        t = re.sub("^- ", "", t)
         t = re.sub(r"\\ t", "", t)
         t = re.sub(r"\\ ", "", t)
 
